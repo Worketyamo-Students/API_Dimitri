@@ -1,25 +1,15 @@
+  # Use postgres/example user/password credentials
+version: '3.9'
+
 services:
-  app:
-    build: .
-    ports:
-      - '4000:3000'
-    env_file:
-      - ./.env
-    depends_on:
-      - mongo
-    develop:
-      watch:
-        - path: ./
-          action: rebuild
 
-  mongo:
-    image: mongo:latest
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: klanoshi5
+      POSTGRES_USER: postgres
     ports:
-      - '27017:27017'
-    env_file:
-      - ./.env
-    volumes:
-      - mongo-data:/data/db
+      - 5432:5432
 
-volumes:
-  mongo-data:
+# to run docker container by command, use : docker run --name postgres -e POSTGRES_PASSWORD=klanoshi5 -d postgres
